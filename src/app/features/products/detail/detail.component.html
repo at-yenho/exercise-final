@@ -1,0 +1,101 @@
+<ng-template [ngIf]="product">
+  <div class="container">
+    <br>  
+    <div class="card" [ngStyle]="{'background': '#f8f9f9'}">
+      <div class="row">
+        <aside class="col-sm-5" [ngStyle]="{'padding': '0px! important'}">
+          <article class="gallery-wrap" [ngStyle]="{'height': '100%', 'width': '100%'}">
+              <a href="#"><img [ngStyle]="{'height': '100%', 'width': '100%'}" src="{{product.imageLink || 'assets/images/item.jpg'}}"></a>
+          </article>
+        </aside>
+        <aside class="col-sm-7">
+          <article class="card-body p-5">
+            <h3 class="title mb-3">{{product.name}}</h3>
+            <p class="price-detail-wrap"> 
+              <span class="price h3 text-warning"> 
+              <span class="currency">$</span><span class="num">{{product.price}}</span>
+              </span> 
+              <span>/product</span> 
+            </p>
+            <!-- price-detail-wrap .// -->
+            <dl class="item-property">
+              <dt>Description</dt>
+              <dd>
+                <p>{{product.decs}}
+                </p>
+              </dd>
+            </dl>
+            <!-- item-property-hor .// -->
+            <dl class="param param-feature">
+              <dt>Category</dt>
+              <dd>{{product.category}}</dd>
+            </dl>
+            <!-- item-property-hor .// -->
+            <hr>
+            <div class="row">
+              <div class="col-sm-5">
+                <dl class="param param-inline">
+                  <dt>Quantity: </dt>
+                  <dd>
+                    <select class="form-control form-control-sm" style="width:70px;">
+                      <option> 1 </option>
+                      <option> 2 </option>
+                      <option> 3 </option>
+                    </select>
+                  </dd>
+                </dl>
+                <!-- item-property .// -->
+              </div>
+              <!-- col.// -->
+              <div class="col-sm-7">
+                <dl class="param param-inline">
+                  <dt>Size: </dt>
+                  <dd>
+                    <label class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                    <span class="form-check-label">SM</span>
+                    </label>
+                    <label class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                    <span class="form-check-label">MD</span>
+                    </label>
+                    <label class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                    <span class="form-check-label">XXL</span>
+                    </label>
+                  </dd>
+                </dl>
+                <!-- item-property .// -->
+              </div>
+              <!-- col.// -->
+            </div>
+            <!-- row.// -->
+            <hr>
+            <div class="container">
+                <a href="#" class="btn btn-md btn-primary text-uppercase font-weight-lighter mg-button"> Buy now </a>
+                <a class="btn btn-md btn-outline-primary text-uppercase font-weight-lighter mg-button" (click)="addToCart()"> <i class="fas fa-shopping-cart"></i> Add to cart </a>
+                <ng-template [ngIf]="authService.isLoggedIn">
+                    <ng-container *ngIf="product.isLiked; else  addFavorite">
+                      <a (click)="removeToFavorite(product.id)" [ngStyle]="{'color': 'red'}" class="btn btn-md btn-outline-info text-uppercase font-weight-lighter mg-button"> <i class="fas fa-shopping-cart"></i><span [ngStyle]="{'font-size': '18px'}" class="glyphicon glyphicon-thumbs-down"></span> UnLike</a>
+                    </ng-container>
+                    <ng-template #addFavorite>
+                      <a (click)="addToFavorite(product.id)" [ngStyle]="{'color': 'red'}" class="btn btn-md btn-outline-info text-uppercase font-weight-lighter mg-button"> <i class="fas fa-shopping-cart"></i><span [ngStyle]="{'font-size': '18px'}" class="glyphicon glyphicon-thumbs-up"></span> Like</a>
+                    </ng-template>
+                </ng-template>
+            </div>
+          </article>
+          <!-- card-body.// -->
+        </aside>
+        <!-- col.// -->
+      </div>
+      <!-- row.// -->
+    </div>
+    <!-- card.// -->
+  </div>
+  <!--container.//-->
+  <br><br><br>
+  <div class="related-product">
+    <h3 class="font-weight-lighter text-center"> You may also like!</h3>
+    <app-products [category]="product.category" [exceptProductID]="product.id"  [isCategoryInMiddle]="false" [limit]="4" [isShowCategory]='false'></app-products>
+  </div>
+</ng-template>

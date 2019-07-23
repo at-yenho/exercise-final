@@ -1,0 +1,90 @@
+<ng-template [ngIf]="err">
+	<div class="alert alert-danger">{{err}}</div>
+</ng-template>
+<ng-template [ngIf]="success">
+	<div class="alert alert-info">{{success}}</div>
+</ng-template>
+<ng-template [ngIf]="user">
+  <div class="container">
+    <div>
+      <h2 class="text-center">Your Profile</h2>
+    </div>
+    <!-- <div class="col-lg-12">
+      <div class="alert alert-info alert-dismissable"> <a class="panel-close close" data-dismiss="alert">×</a>
+          This is an <strong>.alert</strong>. Use this to show important messages to the user.
+      </div>
+      </div> -->
+    <div class="row m-y-2 m-t-2">
+      <!-- edit form column -->
+      <div class="col-lg-8 push-lg-4 personal-info">
+        <form role="form" [formGroup]="formReactive" (ngSubmit)="onSubmit()">
+          <div class="form-group row">
+            <label for="firstName" class="col-lg-3 col-form-label form-control-label">First name</label>
+            <div class="col-lg-9">
+              <input class="form-control" formControlName="firstName" id="firstName" type="text" [(ngModel)]="user.firstName"/>
+              <ng-container *ngTemplateOutlet="messageValidate; context: {$implicit: false, field: formReactive.controls.firstName};"></ng-container>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="lastName" class="col-lg-3 col-form-label form-control-label">Last name</label>
+            <div class="col-lg-9">
+              <input class="form-control" formControlName="lastName" id="lastName" type="text"[(ngModel)]="user.lastName"/>
+              <ng-container *ngTemplateOutlet="messageValidate; context: {$implicit: false, field: formReactive.controls.lastName};"></ng-container>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="email" class="col-lg-3 col-form-label form-control-label">Email</label>
+            <div class="col-lg-9">
+              <input class="form-control" formControlName="email" id="email" type="email" [(ngModel)]="user.email"/>
+              <ng-container *ngTemplateOutlet="messageValidate; context: {$implicit: false, field: formReactive.controls.email, email: true};"></ng-container>						
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="password"class="col-lg-3 col-form-label form-control-label">Password</label>
+            <div class="col-lg-9">
+              <input class="form-control" formControlName="password" id="password" type="password" />
+              <ng-container *ngTemplateOutlet="messageValidate; context: {$implicit: false, field: formReactive.controls.password};"></ng-container>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="confirmPassword" class="col-lg-3 col-form-label form-control-label">Confirm password</label>
+            <div class="col-lg-9">
+              <input class="form-control" formControlName="confirmPassword" id="confirmPassword" type="password" />
+              <ng-container *ngTemplateOutlet="messageValidate; context: {$implicit: false, field: formReactive.controls.confirmPassword, matchPassword: true};"></ng-container>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-lg-3 col-form-label form-control-label"></label>
+            <div class="col-lg-9">
+              <input type="reset" class="btn btn-secondary" value="Cancel" />
+              <button type="submit" class="btn btn-primary" [ngStyle]="{'margin-left': '20px'}"
+              [disabled]="formReactive.invalid || formReactive.controls.password.value != formReactive.controls.confirmPassword.value">Save Changes</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-lg-4 pull-lg-8 text-center">
+        <img id="avatar" src="{{ user?.avatar || 'assets/images/user-default.png'}}" class="rounded-circle" alt="avatar" width="80%" />
+        <h6 class="m-t-2">Upload a different photo</h6>
+        <label for="file" class="custom-file">
+        <input type="file" id="file" [ngStyle]="{'display': 'none'}" class="custom-file-input" (change)="onFileChange($event)" >
+        <span class="custom-file-control">Choose file</span>
+        </label>
+        <div>
+          <span *ngIf="fileTypeWrong" [ngStyle]="{'color': 'red', 'font-size': 'small'}">Please choose image type!</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr />
+</ng-template>
+<ng-template #messageValidate let-myField=field let-isRequired=required let-isEmail=email let-isMatchPassword=matchPassword >
+  <div *ngIf="myField.invalid 
+    && (myField.dirty || myField.touched)">
+    <span *ngIf="myField.errors.required" [ngStyle]="{'color': 'red', 'font-size': 'small'}">This field is required</span>
+    <span *ngIf="isEmail && myField.errors.email" [ngStyle]="{'color': 'red', 'font-size': 'small'}">This field must be an email</span>
+  </div>
+  <div *ngIf="myField.dirty || myField.touched">
+    <span *ngIf="isMatchPassword && (formReactive.controls.password.value != myField.value)" [ngStyle]="{'color': 'red', 'font-size': 'small'}">Password not match</span>
+  </div>
+</ng-template>

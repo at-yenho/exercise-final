@@ -1,0 +1,12 @@
+<div class="slide-show" >
+    <slideshow [height]="'400px'"
+      [minHeight]="'300px'"
+      [autoPlay]="true"
+      [showArrows]="true"
+      [imageUrls]="imageUrls"
+      [autoPlayWaitForLazyLoad]="true">
+  </slideshow>
+</div>
+<app-products category="woman" [isCategoryInMiddle]="false" [limit]="4"></app-products>
+<app-products category="man" [isCategoryInMiddle]="false" [limit]="4"></app-products>
+<app-products category="children" [isCategoryInMiddle]="false" [limit]="4"></app-products>

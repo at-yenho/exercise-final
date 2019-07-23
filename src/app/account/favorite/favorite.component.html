@@ -1,0 +1,28 @@
+<h3 class="text-center">My favorite</h3>
+<ng-container *ngIf="(products || []).length; else showNotthing">
+  <div [ngStyle]="{'padding-bottom': '40px'}">
+    <div class="container">
+      <div class="card font-weight-lighter" *ngFor="let product of products | slice: (page-1) * perPage : (page-1) * perPage + perPage; let i = index">
+          <a routerLink="/products/{{product.id}}" class="add-cart-image">
+            <img class="card-img-top" src="{{product.imageLink}}" alt="Card image cap">
+          </a>
+          <span data-toggle="modal" data-target="#deleteModal"class="remove-like font-weight-lighter" id="{{(page-1) * perPage + i}}">X</span>
+          <div class="card-title">{{product.name | limitText : 70}}</div>
+          <div class="card-price">
+            <a>${{product.price}}</a>
+          </div>
+      </div>
+    </div>
+  </div>
+  <div [ngStyle]="{'position': 'relative', 'height': '100px'}">
+    <ngb-pagination class="paginate"
+    [(page)]="page"
+    [pageSize]="perPage"
+    (pageChange)="pageChanged($event)"
+    [collectionSize]="products.length"></ngb-pagination>
+  </div>
+</ng-container>
+<ng-template #showNotthing>
+  <h3 [ngStyle]="{'color': 'green', 'text-align': 'center'}">Not thing to show</h3>
+</ng-template>
+<app-modal (positionDeleted)="deleteItemFromModal($event)"></app-modal>

@@ -1,0 +1,13 @@
+footer {
+    background: linear-gradient(to right, #c1c5c2 , #c1c5c9);
+    width: 100%;
+}
+.back-to-top {
+    cursor: pointer;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    border-radius: 50%;
+    background: rgb(150, 173, 168);
+    z-index: 5;
+}

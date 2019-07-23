@@ -1,0 +1,32 @@
+<div class="container">
+<ng-template [ngIf]="err">
+    <div class="alert alert-danger">{{err}}</div>
+  </ng-template>
+  <div class="col-md-6 login-form">
+    <h2 [ngStyle]="{'text-align': 'center'}">Login</h2>
+    <form action="" #login="ngForm" (ngSubmit)="onSubmit(login)">
+      <div class="form-group">
+        <label for="emaillg">Email Address</label>
+        <input type="email" class="form-control" #validEmail="ngModel" [(ngModel)]="myemail" name="email" id="emaillg" required  pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+        <ng-container *ngTemplateOutlet="messageValidate; context: {field: validEmail};"></ng-container>      
+      </div>
+      <div class="form-group">
+        <label for="passwordlg">Password</label>
+        <input type="password" class="form-control" #validPassword="ngModel" [(ngModel)]="mypassword" name="password" id="passwordlg" required minlength="3" maxlength="20">
+        <ng-container *ngTemplateOutlet="messageValidate; context: {field: validPassword};"></ng-container>      
+      </div>
+      <button type="submit" [disabled]="login.invalid"  class="btn-block btn btn-primary">Login</button>
+      <a routerLink="/register" [ngStyle]="{'display':'block', 'text-align':'center', 'margin-top': '20px'}">Don't have an account? Create an account here</a>
+    </form>
+  </div>
+  <ng-template #messageValidate let-validField=field >
+    <div *ngIf="validField.invalid 
+      && (validField.dirty || validField.touched)">
+      <span *ngIf="validField.errors.required" [ngStyle]="{'color': 'red', 'font-size': 'small'}">This field is required</span>
+      <div *ngIf="validField.dirty && validField.touched">
+        <span *ngIf="validField.errors.minlength" [ngStyle]="{'color': 'red', 'font-size': 'small'}">This field is not enough {{validField.errors.minlength.requiredLength}} {{validField.errors.minlength.requiredLength == 1? 'character': 'characters'}}</span>
+        <span *ngIf="validField.errors.pattern" [ngStyle]="{'color': 'red', 'font-size': 'small'}">This field must be an email</span>
+      </div>
+    </div>
+  </ng-template>
+</div>

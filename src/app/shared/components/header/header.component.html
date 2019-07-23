@@ -1,0 +1,57 @@
+<div class="align-middle button-collapse">
+  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu-collapse"
+  aria-controls="menu-collapse" aria-expanded="false" aria-label="Toggle navigation">
+    <div class="humburger"></div>
+    <div class="humburger"></div>
+    <div class="humburger"></div>
+  </button>
+</div>
+<div class="header white-text">
+  <a class="nav-link home">
+    <div class="nav-item align-middle">
+        <a  routerLink="/"><img alt="Home" height="50px" src="assets/images/icon-logo.png" title="Home" class="ng-star-inserted"></a>
+    </div>
+    <div class="nav-item font-weight-lighter text-uppercase align-middle item-link-hidden"><a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/">home</a></div>
+    <div class="nav-item font-weight-lighter text-uppercase align-middle item-link-hidden"><a routerLinkActive="active" routerLink="/woman" [queryParams]="{'limit': 12}" >woman</a></div>
+    <div class="nav-item font-weight-lighter text-uppercase align-middle item-link-hidden"><a routerLinkActive="active" routerLink="/man" [queryParams]="{'limit': 12}">man</a></div>
+    <div class="nav-item font-weight-lighter text-uppercase align-middle item-link-hidden"><a routerLinkActive="active" routerLink="/children" [queryParams]="{'limit': 12}">children</a></div>
+    <ng-container *ngIf="authService.isLoggedIn; else loginLink">
+      <a [ngStyle]="{'top': '17px', 'position': 'absolute', 'right': '185px', 'color': 'blue', 'font-size': '21px'}" routerLinkActive="active" class="nav-item font-weight-lighter" routerLink="/cart">
+        <ng-container [ngTemplateOutlet]="cart"></ng-container>
+      </a>
+      <a [ngStyle]="{'top': '17px', 'position': 'absolute', 'right': '77px', 'color': '#888888', 'font-size': 'large'}" routerLinkActive="active" class="nav-item font-weight-lighter" routerLink="/account/dashboard">Dashboard</a>
+      <a routerLinkActive="active" class="nav-item font-weight-lighter" [ngStyle]="{'top': '17px', 'color': '#888888', 'font-size': 'large', 'position': 'absolute', 'right': '7px'}" (click)="logout()">Logout</a>
+    </ng-container>
+    <ng-template #loginLink>
+      <a [ngStyle]="{'top': '17px', 'position': 'absolute', 'right': '125px', 'color': 'blue', 'font-size': '21px'}" routerLinkActive="active" class="nav-item font-weight-lighter" routerLink="/cart">
+        <ng-container [ngTemplateOutlet]="cart"></ng-container>
+      </a>
+      <a [ngStyle]="{'top': '17px', 'position': 'absolute', 'right': '77px', 'color': '#888888', 'font-size': 'large'}" routerLinkActive="active" class="nav-item font-weight-lighter" routerLink="/login">Login</a>
+      <a [ngStyle]="{'top': '17px', 'position': 'absolute', 'right': '7px', 'color': '#888888', 'font-size': 'large'}" routerLinkActive="active" class="nav-item font-weight-lighter" routerLink="/register">register</a>
+    </ng-template>
+  </a>
+  <div class="collapse navbar-collapse" id="menu-collapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active font-weight-lighter mg-l-conllapse">
+            <a routerLinkActive="active" routerLink="/woman" [queryParams]="{'limit': 12}" >woman</a>
+        </li>
+        <li class="nav-item active font-weight-lighter mg-l-conllapse">
+            <a routerLinkActive="active" routerLink="/man" [queryParams]="{'limit': 12}" >man</a>
+        </li>
+        <li class="nav-item active font-weight-lighter mg-l-conllapse">
+            <a routerLinkActive="active" routerLink="/children" [queryParams]="{'limit': 12}" >children</a>
+        </li>
+      </ul>
+    </div>
+</div>
+
+<ng-template #cartLink let-rightSize=right >
+  <a [ngStyle]="{'top': '17px', 'position': 'absolute', 'right': rightSize, 'color': 'blue', 'font-size': '21px'}" routerLinkActive="active" class="nav-item font-weight-lighter" routerLink="/cart">
+    <span class="glyphicon glyphicon-shopping-cart"></span>
+    <span class='badge badge-warning' id='lblCartCount'> {{ authService.totalItemInCart }} </span>
+  </a>
+</ng-template>
+<ng-template #cart>
+  <span class="glyphicon glyphicon-shopping-cart"></span>
+  <span class='badge badge-warning' id='lblCartCount'> {{ authService.totalItemInCart }} </span>
+</ng-template>

@@ -1,0 +1,30 @@
+<div class="row">
+  <button type="button" class="navbar-toggle" (click)="toogle()">
+      <div class="humburger"></div>
+      <div class="humburger"></div>
+      <div class="humburger"></div>
+  </button>
+</div>
+<div class="row">
+  <div class="side-menu col-md-3">
+    <nav class="navbar navbar-default" role="navigation">
+
+      <!-- Main Menu -->
+      <div class="side-menu-container">
+        <ul class="nav navbar-nav">
+
+          <li><a routerLinkActive="active" (click)="hiddenMenu()" [routerLinkActiveOptions]="{exact: true}" routerLink="/account/dashboard"><span class="glyphicon glyphicon-dashboard" [ngStyle]="{'color': 'red'}"></span> My Dashboard</a></li>
+          <li><a routerLinkActive="active" (click)="hiddenMenu()" routerLink="/account/profile"><span class="glyphicon glyphicon-user" [ngStyle]="{'color': 'red'}"></span>My Profile</a></li>
+          <li><a routerLinkActive="active" (click)="hiddenMenu()" routerLink="/account/favorite"><span class="glyphicon glyphicon-heart" [ngStyle]="{'color': 'red'}"></span>My Favorite</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container-fluid col-md-9">
+      <div class="side-body">
+        <router-outlet></router-outlet>
+      </div>
+  </div>
+</div>

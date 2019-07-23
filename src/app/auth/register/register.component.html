@@ -1,0 +1,47 @@
+<div class="container">
+  <ng-template [ngIf]="err">
+      <div class="alert alert-danger">{{err}}</div>
+    </ng-template>
+    <div class="col-md-6 register-form">
+      <h2 [ngStyle]="{'text-align': 'center'}">Create an account</h2>
+      <form action="" [formGroup]="formReactive" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="firstName">First Name</label>
+          <input type="text" class="form-control" formControlName="firstName" id="firstName">
+          <ng-container *ngTemplateOutlet="messageValidate; context: {$implicit: false, field: formReactive.controls.firstName};"></ng-container>
+        </div>
+        <div class="form-group">
+          <label for="lastName">Last Name</label>
+          <input type="text" class="form-control" formControlName="lastName" id="lastName">
+          <ng-container *ngTemplateOutlet="messageValidate; context: {$implicit: false, field: formReactive.controls.lastName};"></ng-container>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" formControlName="email" id="email">
+          <ng-container *ngTemplateOutlet="messageValidate; context: {$implicit: false, field: formReactive.controls.email, email: true};"></ng-container>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" formControlName="password" id="password">
+          <ng-container *ngTemplateOutlet="messageValidate; context: {$implicit: false, field: formReactive.controls.password};"></ng-container>
+        </div>
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input type="password" class="form-control" formControlName="confirmPassword" id="confirmPassword">
+          <ng-container *ngTemplateOutlet="messageValidate; context: {$implicit: false, field: formReactive.controls.confirmPassword, matchPassword: true};"></ng-container>
+        </div>
+        <button type="submit" [disabled]="formReactive.invalid || formReactive.controls.password.value != formReactive.controls.confirmPassword.value"  class="form-control btn btn-primary">Create</button>
+      </form>
+    </div>
+    <ng-template #messageValidate let-myField=field let-isRequired=required let-isEmail=email let-isMatchPassword=matchPassword >
+      <div *ngIf="myField.invalid 
+        && (myField.dirty || myField.touched)">
+        <span *ngIf="myField.errors.required" [ngStyle]="{'color': 'red', 'font-size': 'small'}">This field is required</span>
+        <span *ngIf="isEmail && myField.errors.email" [ngStyle]="{'color': 'red', 'font-size': 'small'}">This field must be an email</span>
+      </div>
+      <div *ngIf="myField.dirty || myField.touched">
+        <span *ngIf="isMatchPassword && (formReactive.controls.password.value != myField.value)" [ngStyle]="{'color': 'red', 'font-size': 'small'}">Password not match</span>
+      </div>
+    </ng-template>
+      
+</div>

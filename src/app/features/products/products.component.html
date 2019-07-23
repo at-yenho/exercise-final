@@ -1,0 +1,34 @@
+
+<ng-container *ngIf="products; else showNotthing">
+  <div [ngStyle]="{'padding-bottom': '40px'}" class="container">
+    <ng-template [ngIf]="isShowCategory">
+        <div class="font-weight-lighter cate-cap" [ngClass]="{'text-center': isCategoryInMiddle, 'text-dark': isCategoryInMiddle}"><a routerLink="/{{category}}" [queryParams]="{'limit': 12}" class="text-dark">{{category}}</a></div>
+    </ng-template>    
+    <div class="card font-weight-lighter" *ngFor="let product of products | slice: (page-1) * perPage : (page-1) * perPage + perPage; let i = index">
+        <a routerLink="/products/{{product.id}}" class="add-cart-image">
+          <img class="card-img-top" src="{{product.imageLink}}" alt="Card image cap">
+          <button class="add-cart" (click)="addToCart(product.id, $event)">add to cart</button>
+        </a>
+        <div class="card-title">{{product.name | limitText : 70}}</div>
+        <div class="card-price">
+          <a>${{product.price}}</a>
+          <ng-container *ngIf="authService.isLoggedIn">
+              <div class="heart" [ngClass]="{'bg-gray': !product.isLiked}"  id="{{(page-1) * perPage + i}}"></div>
+          </ng-container>
+          </div>
+    </div>
+  </div>
+  <ng-container *ngIf="isCategoryInMiddle">
+    <div [ngStyle]="{'position': 'relative', 'height': '100px'}">
+      <ngb-pagination class="paginate"
+      [(page)]="page"
+      [pageSize]="perPage"
+      (pageChange)="pageChanged($event)"
+      [collectionSize]="products.length"></ngb-pagination>
+    </div>
+  </ng-container>
+</ng-container>
+
+<ng-template #showNotthing>
+  <h3 [ngStyle]="{'color': 'green', 'text-align': 'center'}">Not thing to show</h3>
+</ng-template>

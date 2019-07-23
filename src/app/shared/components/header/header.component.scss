@@ -1,0 +1,95 @@
+.header {
+    height: max-content;
+    position: fixed;
+    top: 0;
+    z-index: 4;
+    background: linear-gradient(to right, #c1c5c2, #c1c5c9);
+    width: 100%;
+}
+.nav-link {
+    height: inherit;
+}
+.button-collapse {
+    position: fixed;
+    left: 1px;
+    top: 10px;
+    z-index: 5;
+}
+.nav-link.home {
+    cursor: pointer;
+    margin: 0 16px 0 25%;
+    color: #F5EBE9;
+}
+.nav-item {
+    display: inline-block;
+    width: max-content;
+    font-size: 22px;
+    margin-left: 3%;
+    color: black;
+}
+.nav-item a {
+    color: black;
+}
+.nav-item:hover {
+    text-shadow: 0 1px;  
+}
+img:hover {
+    transform: scale(1.1);
+}
+.active {
+    color: red! important;
+}
+.badge {
+    padding-left: 9px;
+    padding-right: 9px;
+    -webkit-border-radius: 9px;
+    -moz-border-radius: 9px;
+    border-radius: 9px;
+}
+  
+.label-warning[href],
+.badge-warning[href] {
+    background-color: #c67605;
+}
+#lblCartCount {
+    font-size: 12px;
+    background: #ff0000;
+    color: #fff;
+    padding: 0 5px;
+    vertical-align: top;
+    position:relative;
+    margin-left: -10px; 
+}
+@media only screen and (max-width: 600px) {
+    .item-link-hidden {
+        display: none;
+    }
+    .nav-link.home {
+        margin: 0 16px 0 1%;
+    }
+    .navbar-toggle {
+        display: inline;
+    }
+    .nav-item {
+        margin-left: 10%;
+    }
+    .mg-l-conllapse {
+        margin-left: 8px! important;
+    }
+}
+@media only screen and (max-width: 900px) and (min-width: 601px) {
+    .nav-link.home {
+        margin: 0 16px 0 0;
+    }
+    .nav-item {
+        margin-left: 2%;
+    }
+    .home-item {
+        display: none;
+    }
+}
+@media only screen and (min-width: 601px) {
+    #menu-collapse {
+        display: none;
+    }
+}
