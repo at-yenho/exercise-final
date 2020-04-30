@@ -29,7 +29,7 @@
     "file-saver": "^2.0.1",
     "file-system": "^2.2.2",
     "flatpickr": "^4.6.1",
-    "jquery": "^3.4.0",
+    "jquery": "^3.5.0",
     "ng-simple-slideshow": "^1.2.9",
     "ngx-cookie-service": "^2.1.0",
     "ngx-infinite-scroll": "^7.1.0",
